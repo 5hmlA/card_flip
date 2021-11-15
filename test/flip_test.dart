@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flip/flip.dart';
+import 'package:card_flip/flip.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flip');

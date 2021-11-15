@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flip/flip.dart';
+import 'package:card_flip/flip.dart';
 
 import 'Colors.dart';
 
