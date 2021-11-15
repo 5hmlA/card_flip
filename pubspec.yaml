@@ -1,7 +1,7 @@
 name: flip
-description: A new Flutter project.
+description: A flip card layout Flutter project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/ZuYun/flip
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
