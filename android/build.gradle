@@ -1,4 +1,4 @@
-group 'june.ospl.flip'
+group 'june.ospl.card_flip'
 version '1.0-SNAPSHOT'
 
 buildscript {

@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:card_flip/flip.dart';
+import 'package:card_flip/card_flip.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flip');
+  const MethodChannel channel = MethodChannel('card_flip');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

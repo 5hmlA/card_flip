@@ -1,6 +1,6 @@
-# flip_example
+# card_flip_example
 
-Demonstrates how to use the flip plugin.
+Demonstrates how to use the card_flip plugin.
 
 ## Getting Started
 

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="june.ospl.flip_example">
+    package="june.ospl.card_flip_example">
    <application
-        android:label="flip_example"
+        android:label="card_flip_example"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:flip/jelly_layout.dart';
+import 'package:card_flip/card_flip.dart';
 import 'package:flutter/material.dart';
 
-indexColor(int index) {
+index_color(int index) {
   return Colors.primaries[index % Colors.primaries.length];
 }
 
 randomColor() {
-  return indexColor(Random().nextInt(Colors.primaries.length));
+  return index_color(Random().nextInt(Colors.primaries.length));
 }
 
 Container centerText(String text, {Color? color, VoidCallback? onPressed}) {

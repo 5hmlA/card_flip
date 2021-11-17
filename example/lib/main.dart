@@ -1,8 +1,6 @@
+import 'package:card_flip/card_flip.dart';
+import 'package:card_flip/flip_sample.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:card_flip/flip.dart';
 
 import 'Colors.dart';
 
@@ -51,11 +49,12 @@ class _MyAppState extends State<MyApp> {
       itemCount: 3,
       itemBuilder: (BuildContext context, int inde) {
         return FlipLayout(
+            duration: 1500,
             key: ValueKey(inde),
             foldState: inde == 0,
             childs: List.generate(titles.length, (index) {
               if (index == 0) {
-                return Container(
+                return SizedBox(
                   width: 200,
                   height: 100,
                   child: Builder(

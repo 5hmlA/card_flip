@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftFlipPlugin: NSObject, FlutterPlugin {
+public class SwiftCardFlipPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "flip", binaryMessenger: registrar.messenger())
-    let instance = SwiftFlipPlugin()
+    let channel = FlutterMethodChannel(name: "card_flip", binaryMessenger: registrar.messenger())
+    let instance = SwiftCardFlipPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

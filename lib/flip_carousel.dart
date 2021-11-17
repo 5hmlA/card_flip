@@ -39,7 +39,8 @@ class FlipLayout extends StatefulWidget {
   FlipLayoutState createState() => FlipLayoutState();
 }
 
-class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMixin {
+class FlipLayoutState extends State<FlipLayout>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationControl;
   late List<Animation<double>> _unfoldAnimations;
   var childSize = 0;
@@ -64,9 +65,13 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
     childSize = widget.childs!.length;
 
     if (childSize <= 3) {
-      _animationControl = AnimationController(vsync: this, duration: Duration(milliseconds: widget.duration));
+      _animationControl = AnimationController(
+          vsync: this, duration: Duration(milliseconds: widget.duration));
     } else {
-      _animationControl = AnimationController(vsync: this, duration: Duration(milliseconds: widget.duration * (childSize / 2).floor()));
+      _animationControl = AnimationController(
+          vsync: this,
+          duration: Duration(
+              milliseconds: widget.duration * (childSize / 2).floor()));
     }
 
     Animation<double>? heightAnimation; //高度animation
@@ -77,10 +82,11 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
       //展开状态 1为展开 下一个动画是 (1-0) 0为折叠，
       _animationControl.value = 1;
     }
-    unfoldAnimation = _animationControl.drive(CurveTween(curve: Curves.easeInOut));
+    unfoldAnimation =
+        _animationControl.drive(CurveTween(curve: Curves.easeInOut));
     heightAnimation = CurvedAnimation(
       parent: _animationControl,
-      curve: Cubic(0.75, 0.82, 0.08, 1.25),
+      curve: const Cubic(0.75, 0.82, 0.08, 1.25),
     );
     if (childSize > 1) {
       double interval = 1.0 / (childSize);
@@ -100,23 +106,25 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
           end = .5;
         }
         Tween<double> foldTween = Tween(begin: begin, end: end);
-        return foldTween.chain(CurveTween(curve: Interval(index * interval, (index + 1) * interval))).animate(unfoldAnimation);
+        return foldTween
+            .chain(CurveTween(
+                curve: Interval(index * interval, (index + 1) * interval)))
+            .animate(unfoldAnimation);
       });
 
-      if (heightAnimation != null) {
-        /// 第一个item高度不用变
-        interval = 1.0 / (childSize - 1);
-        _heightAnimations = List.generate(childSize - 1, (index) {
-          var animatable;
-          if (index == childSize - 2) {
-            animatable = CurveTween(curve: IntervalOver1(index * interval, (index + 1) * interval));
-            animatable.chain(CurveTween(curve: Curves.easeOutBack));
-          } else {
-            animatable = CurveTween(curve: IntervalSafe(index * interval, (index + 1) * interval));
-          }
-          return animatable.animate(heightAnimation!);
-        });
-      }
+      interval = 1.0 / (childSize - 1);
+      _heightAnimations = List.generate(childSize - 1, (index) {
+        CurveTween animatable;
+        if (index == childSize - 2) {
+          animatable = CurveTween(
+              curve: IntervalOver1(index * interval, (index + 1) * interval));
+          animatable.chain(CurveTween(curve: Curves.easeOutBack));
+        } else {
+          animatable = CurveTween(
+              curve: IntervalSafe(index * interval, (index + 1) * interval));
+        }
+        return animatable.animate(heightAnimation!);
+      });
     }
 
     _animationControl.addListener(() {
@@ -137,7 +145,7 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
     var result = foldAbleLayout(context);
     if (widget.borderRadius != null) {
       result = ClipRRect(
-        key: ValueKey(0),
+        key: const ValueKey(0),
         borderRadius: widget.borderRadius,
         child: result,
       );
@@ -151,10 +159,10 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
   /// 3，围绕顶部 90-0     折叠状态 90 ---> 0 折叠到展开
   foldAbleLayout(BuildContext context) {
     return Container(
-      key: ValueKey(0),
+      key: const ValueKey(0),
       decoration: widget.decoration,
       child: Column(
-        key: ValueKey(0),
+        key: const ValueKey(0),
         mainAxisSize: MainAxisSize.min,
         children: List.generate(childSize, (index) {
           Widget child = widget.childs![index];
@@ -173,7 +181,9 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
             return Flip(
               key: ValueKey(index),
               spinProgress: _unfoldAnimations[index].value,
-              heightProgress: _heightAnimations == null ? null : _heightAnimations![index - 1].value,
+              heightProgress: _heightAnimations == null
+                  ? null
+                  : _heightAnimations![index - 1].value,
               child: child,
             );
           }
@@ -184,7 +194,9 @@ class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMi
           return Flip(
             key: ValueKey(index),
             spinProgress: _unfoldAnimations[index].value,
-            heightProgress: _heightAnimations == null ? null : _heightAnimations![index - 1].value,
+            heightProgress: _heightAnimations == null
+                ? null
+                : _heightAnimations![index - 1].value,
             child: child,
             back: background,
           );
@@ -209,11 +221,6 @@ class Flip extends MultiChildRenderObjectWidget {
   }) : super(key: key, children: back == null ? [child] : [child, back]);
 
   @override
-  MultiChildRenderObjectElement createElement() {
-    return super.createElement();
-  }
-
-  @override
   CarouselRenderObject createRenderObject(BuildContext context) {
     return CarouselRenderObject(
       spinProgress: spinProgress,
@@ -223,7 +230,8 @@ class Flip extends MultiChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, covariant CarouselRenderObject renderObject) {
+  void updateRenderObject(
+      BuildContext context, covariant CarouselRenderObject renderObject) {
     renderObject
       ..spinProgress = spinProgress
       ..highProgress = heightProgress;
@@ -308,7 +316,11 @@ class CarouselRenderObject extends RenderStack {
     } else {
       //没有高度变化的控制就自己变化高度
       if (spinProgress < 0) {
-        size = Size(size.width, Cubic(0.775, 0.685, 0.12, 1.05).transform(math.cos(spinProgress.abs() * pi)) * size.height);
+        size = Size(
+            size.width,
+            const Cubic(0.775, 0.685, 0.12, 1.05)
+                    .transform(math.cos(spinProgress.abs() * pi)) *
+                size.height);
       }
     }
   }
@@ -358,27 +370,41 @@ class CarouselRenderObject extends RenderStack {
   }
 
   void updateTransform(double radians) {
-    if (!alignmentBottom) {
-      /// 围绕顶部旋转
-      _rotateTransform = Matrix4.rotationX(radians);
-    } else {
+
+    AlignmentDirectional alignmentDirectional = AlignmentDirectional.topCenter;
+    /// https://medium.com/flutter/perspective-on-flutter-6f832f4d912e
+    /// https://medium.com/flutter-community/make-3d-flip-animation-in-flutter-16c006bb3798
+    /// It points out that changing value at row 3 and column 2 of
+    /// Matrix4 will change its perspective and bring up 3-D effect into our transformation
+    var _transform = Matrix4.identity()
+      ..setEntry(3, 2, 0.001); // perspective
+
+    if (alignmentBottom) {
       /// 围绕底部旋转
-      var _transform = Matrix4.rotationX(radians);
-      final Alignment resolvedAlignment = AlignmentDirectional.bottomCenter.resolve(textDirection);
-      final Matrix4 result = Matrix4.identity();
-      Offset? translation;
-      translation = resolvedAlignment.alongSize(_originalSize);
-      /// 先移动到底部
-      result.translate(translation.dx, translation.dy);
-
-      result.multiply(_transform);
-
-      /// 执行旋转
-      result.translate(-translation.dx, -translation.dy);
-
-      ///再移回去
-      _rotateTransform = result;
+      alignmentDirectional = AlignmentDirectional.bottomCenter;
+      _transform.rotateX(radians);
+    }else{
+      /// 围绕顶部旋转
+      alignmentDirectional = AlignmentDirectional.topCenter;
+      _transform.rotateX(-radians);
     }
+
+    final Alignment resolvedAlignment =
+        alignmentDirectional.resolve(textDirection);
+    final Matrix4 result = Matrix4.identity();
+    Offset? translation;
+    translation = resolvedAlignment.alongSize(_originalSize);
+
+    /// 先移动到底部
+    result.translate(translation.dx, translation.dy);
+
+    result.multiply(_transform);
+
+    /// 执行旋转
+    result.translate(-translation.dx, -translation.dy);
+
+    ///再移回去
+    _rotateTransform = result;
   }
 
   @override
