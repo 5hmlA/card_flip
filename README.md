@@ -13,4 +13,4 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-<video id="video" controls="" preload="none" poster="https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/Record.mp4"> <source id="mp4" src="https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/Record.mp4" type="video/mp4"> </video>
+<video id="video" controls="" preload="none" poster="https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/Screenshot_1.jpg"> <source id="mp4" src="https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/Record.mp4" type="video/mp4"> </video>
