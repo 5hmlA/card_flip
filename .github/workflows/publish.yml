@@ -35,4 +35,5 @@ jobs:
         with:
           credential: ${{ secrets.CREDENTIAL }}
           skip_test: true
+          flutter_package: false
 
