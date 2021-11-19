@@ -20,8 +20,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
      # 这个任务的步骤
     steps:
-      # 拉取项目代码
-      - run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       
       # 发布到 Release
 
