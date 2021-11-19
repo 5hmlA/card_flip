@@ -24,5 +24,6 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       
+      - run: echo "💡 The ${{ steps.get_version.outputs.VERSION }}."
       # 发布到 Release
 
