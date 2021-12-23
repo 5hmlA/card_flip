@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
@@ -10,7 +9,7 @@ import 'dart:math' as math;
 ///  末尾,  |  >  ___  (围绕顶部旋转 -0.5->0) 只要正面只旋转正面
 ///
 class FlipLayout extends StatefulWidget {
-  final List<Widget>? childs;
+  final List<Widget>? children;
   final Decoration? decoration;
   final bool foldState; //折叠状态 true 0-1展开
   final Widget? foldChild;
@@ -21,13 +20,13 @@ class FlipLayout extends StatefulWidget {
 
   const FlipLayout(
       {Key? key,
-      this.childs,
+      this.children,
       this.foldChild,
       this.foldState = false,
       this.decoration,
       this.duration = 1000,
       this.borderRadius,
-      this.backgroundColor = Colors.white,
+      this.backgroundColor = Colors.grey,
       this.background})
       : super(key: key);
 
@@ -62,7 +61,7 @@ class FlipLayoutState extends State<FlipLayout>
   @override
   void initState() {
     super.initState();
-    childSize = widget.childs!.length;
+    childSize = widget.children!.length;
 
     if (childSize <= 3) {
       _animationControl = AnimationController(
@@ -165,7 +164,7 @@ class FlipLayoutState extends State<FlipLayout>
         key: const ValueKey(0),
         mainAxisSize: MainAxisSize.min,
         children: List.generate(childSize, (index) {
-          Widget child = widget.childs![index];
+          Widget child = widget.children![index];
           if (index == 0) {
             return Flip(
               key: ValueKey(index),
@@ -259,7 +258,6 @@ class CarouselRenderObject extends RenderStack {
   set spinProgress(double value) {
     _spinProgress = value;
     markNeedsLayout();
-
     /// 类似 invalidate() 更新了属性要主动刷新下
   }
 

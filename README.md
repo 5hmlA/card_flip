@@ -1,22 +1,32 @@
-# card_flip
+# [![publish](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml/badge.svg)](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml)  [![https://pub.dev/packages/loginj](https://img.shields.io/badge/card_flip-0.0.4-blue)](https://pub.dev/packages/card_flip)  
 
-A new Flutter project.
+### what is it
 
-## Getting Started
+![flipover](https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/flip_cards.gif)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+### how to use
+ - pub
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   ```yaml
+   dependencies:
+     card_flip: ^0.0.4
+   ```
 
+ - example
 
-https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/Record.mp4
+   ```dart
+   FlipLayout(
+        duration: 800,
+        foldState: true,
+        children: List.generate(5, (index) {
+              return itemWidget(index);
+        	}),
+        foldChild: FoldCard());
+  }
+   ```
 
-
-https://user-images.githubusercontent.com/9412501/142214791-e66c5a7f-0a92-4b32-90b4-9a412688ee2c.mp4
-
-
+   
+   
+   https://user-images.githubusercontent.com/9412501/142214791-e66c5a7f-0a92-4b32-90b4-9a412688ee2c.mp4
+   
+   https://user-images.githubusercontent.com/9412501/147240240-c81bece3-52f7-4ef9-a08b-69ca6b748e4d.mp4

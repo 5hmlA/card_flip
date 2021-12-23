@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 ///  末尾,  |  >  ___  (围绕顶部旋转 -0.5->0) 只要正面只旋转正面
 ///
 class FoldingBox extends StatefulWidget {
-  final List<Container>? childs;
+  final List<Container>? children;
   final Decoration? decoration;
   final bool foldState;
   final Container? foldChild;
@@ -19,7 +19,7 @@ class FoldingBox extends StatefulWidget {
 
   const FoldingBox(
       {Key? key,
-      this.childs,
+      this.children,
       this.foldChild,
       this.foldState = false,
       this.decoration,
@@ -56,12 +56,12 @@ class FoldingBoxState extends State<FoldingBox>
   @override
   void initState() {
     super.initState();
-    aniChangeHeight = widget.childs!
+    aniChangeHeight = widget.children!
         .map((e) => e.constraints!.maxHeight)
         .reduce((value, element) => value + element);
-    minHeight = widget.childs!.first.constraints!.maxHeight;
+    minHeight = widget.children!.first.constraints!.maxHeight;
     aniChangeHeight = aniChangeHeight - minHeight;
-    childSize = widget.childs!.length;
+    childSize = widget.children!.length;
     Animation<double>? unfoldAnimation;
     if (childSize <= 3) {
       _animationControl = AnimationController(
@@ -143,7 +143,7 @@ class FoldingBoxState extends State<FoldingBox>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: List.generate(childSize, (index) {
-          Container child = widget.childs![index];
+          Container child = widget.children![index];
           if (index == 0) {
             return Stack(
               fit: StackFit.passthrough,

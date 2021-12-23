@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'flip_carousel.dart';
+import 'flip_layout.dart';
 
 /// =====================================================
 //region Carousel test
@@ -85,7 +85,7 @@ class CarouselLayoutDemo extends StatelessWidget {
         return FlipLayout(
             key: ValueKey(inde),
             foldState: inde != 0,
-            childs: List.generate(titles.length, (index) {
+            children: List.generate(titles.length, (index) {
               if (index == 0) {
                 return Container(
                   width: 200,

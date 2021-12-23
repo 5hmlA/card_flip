@@ -1,3 +1,3 @@
-export 'flip_carousel.dart';
-export 'jelly_layout.dart';
-export 'folding_box.dart';
+export 'src/flip_layout.dart';
+export 'src/jelly_layout.dart';
+export 'src/folding_box.dart';

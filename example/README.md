@@ -1,6 +1,6 @@
-# card_flip_example
+# example
 
-Demonstrates how to use the card_flip plugin.
+A new Flutter project.
 
 ## Getting Started
 

@@ -1,4 +1,4 @@
-package june.ospl.card_flip_example
+package june.jzy.ospl.example
 
 import io.flutter.embedding.android.FlutterActivity
 
