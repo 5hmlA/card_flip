@@ -16,7 +16,6 @@
 .idea/
 
 # flutter
-*.lock
 .dart_tool/
 
 # The .vscode folder contains launch configuration and tasks you configure in
@@ -30,7 +29,6 @@
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
 .pub-cache/
 .pub/
 /build/
