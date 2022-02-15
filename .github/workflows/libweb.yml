@@ -14,19 +14,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
-      - name: build flutter web
+      # 建立  环境
+      - name: 🐧  Flutter action
+        uses: subosito/flutter-action@v2.3.0
+        with:
+          flutter-version: '2.x'
+          channel: 'stable'
+      - run: flutter --version
+      - name: 🍏 build flutter web
         run: |
           cd example
           flutter pub get
           flutter build web --release --base-href /${{github.event.repository.name}}/
-      - name: deploy github page
+      - name: 💡 deploy github page
         run: |
           cd example/build/web
           git init
-          # type configurations: your user.email and user.name followed lines 
-          # git config --global user.email your_email 
-          # git config --global user.name your_name 
+          # type configurations: your user.email and user.name followed lines
+          # git config --global user.email your_email
+          # git config --global user.name your_name
           git config --global user.email jonas.jzy@gmail.com
           git config --global user.name ZuYun
           git status
