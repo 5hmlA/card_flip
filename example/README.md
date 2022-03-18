@@ -1,16 +1,37 @@
-# example
+[![publish](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml/badge.svg)](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml)  [![lib web](https://github.com/ZuYun/card_flip/actions/workflows/libweb.yml/badge.svg)](https://github.com/ZuYun/card_flip/actions/workflows/libweb.yml)
 
-A new Flutter project.
+# what is it
 
-## Getting Started
+[![online](https://img.shields.io/badge/online-test-green)](https://zuyun.github.io/card_flip/#/)
 
-This project is a starting point for a Flutter application.
+![flipover](https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/flip_cards.gif)
 
-A few resources to get you started if this is your first Flutter project:
+https://user-images.githubusercontent.com/9412501/147241403-9096fa5c-db76-4106-828b-f9f0b454747b.mp4        https://user-images.githubusercontent.com/9412501/147240240-c81bece3-52f7-4ef9-a08b-69ca6b748e4d.mp4
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# how to use
+[![pub](https://img.shields.io/badge/pub-v0.0.4-green)](https://pub.dev/packages/card_flip)
+```dart
+FlipLayout(
+    duration: 800,
+    foldState: true,
+    foldChild: FoldCard(),
+    children: List.generate(5, (index) {
+          return itemWidget(index);
+      }),
+)
+```
+## customization
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```dart
+const FlipLayout({
+    Key? key,
+    this.children,
+    this.foldChild,
+    this.foldState = false,
+    this.decoration,
+    this.duration = 1000,
+    this.borderRadius,
+    this.backgroundColor = Colors.grey,
+    this.background,
+})
+```

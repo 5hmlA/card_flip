@@ -18,17 +18,17 @@ class FlipLayout extends StatefulWidget {
   final BorderRadius? borderRadius;
   final int duration;
 
-  const FlipLayout(
-      {Key? key,
-      this.children,
-      this.foldChild,
-      this.foldState = false,
-      this.decoration,
-      this.duration = 1000,
-      this.borderRadius,
-      this.backgroundColor = Colors.grey,
-      this.background})
-      : super(key: key);
+  const FlipLayout({
+    Key? key,
+    this.children,
+    this.foldChild,
+    this.foldState = false,
+    this.decoration,
+    this.duration = 1000,
+    this.borderRadius,
+    this.backgroundColor = Colors.grey,
+    this.background,
+  }) : super(key: key);
 
   static FlipLayoutState of(BuildContext context) {
     return context.findAncestorStateOfType<FlipLayoutState>()!;
@@ -258,6 +258,7 @@ class CarouselRenderObject extends RenderStack {
   set spinProgress(double value) {
     _spinProgress = value;
     markNeedsLayout();
+
     /// 类似 invalidate() 更新了属性要主动刷新下
   }
 
@@ -368,20 +369,19 @@ class CarouselRenderObject extends RenderStack {
   }
 
   void updateTransform(double radians) {
-
     AlignmentDirectional alignmentDirectional = AlignmentDirectional.topCenter;
+
     /// https://medium.com/flutter/perspective-on-flutter-6f832f4d912e
     /// https://medium.com/flutter-community/make-3d-flip-animation-in-flutter-16c006bb3798
     /// It points out that changing value at row 3 and column 2 of
     /// Matrix4 will change its perspective and bring up 3-D effect into our transformation
-    var _transform = Matrix4.identity()
-      ..setEntry(3, 2, 0.001); // perspective
+    var _transform = Matrix4.identity()..setEntry(3, 2, 0.001); // perspective
 
     if (alignmentBottom) {
       /// 围绕底部旋转
       alignmentDirectional = AlignmentDirectional.bottomCenter;
       _transform.rotateX(radians);
-    }else{
+    } else {
       /// 围绕顶部旋转
       alignmentDirectional = AlignmentDirectional.topCenter;
       _transform.rotateX(-radians);

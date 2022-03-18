@@ -7,12 +7,13 @@ class FlipLayoutDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlipLayout(
-        duration: 800,
-        foldState: true,
-        children: List.generate(5, (index) {
-          return itemWidget(index);
-        }),
-        foldChild: FoldCard());
+      duration: 800,
+      foldState: true,
+      children: List.generate(5, (index) {
+        return itemWidget(index);
+      }),
+      foldChild: FoldCard(),
+    );
   }
 }
 // class FoldBoxDemo extends StatelessWidget {
