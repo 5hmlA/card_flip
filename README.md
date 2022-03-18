@@ -1,38 +1,37 @@
-# [![publish](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml/badge.svg)](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml)  [![https://pub.dev/packages/loginj](https://img.shields.io/badge/card_flip-0.0.4-blue)](https://pub.dev/packages/card_flip)  
+[![publish](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml/badge.svg)](https://github.com/ZuYun/card_flip/actions/workflows/publish.yml)  [![lib web](https://github.com/ZuYun/card_flip/actions/workflows/libweb.yml/badge.svg)](https://github.com/ZuYun/card_flip/actions/workflows/libweb.yml)
 
-[Online experience](https://zuyun.github.io/card_flip/#/)
+# what is it
 
-### what is it
-
-https://zuyun.github.io/card_flip/#/(https://zuyun.github.io/card_flip/#/)
-
+[![online](https://img.shields.io/badge/online-test-green)](https://zuyun.github.io/card_flip/#/)
 
 ![flipover](https://raw.githubusercontent.com/ZuYun/card_flip/main/preview/flip_cards.gif)
 
-### how to use
- - pub
+https://user-images.githubusercontent.com/9412501/147241403-9096fa5c-db76-4106-828b-f9f0b454747b.mp4        https://user-images.githubusercontent.com/9412501/147240240-c81bece3-52f7-4ef9-a08b-69ca6b748e4d.mp4
 
-   ```yaml
-   dependencies:
-     card_flip: ^0.0.4
-   ```
+# how to use
+[![pub](https://img.shields.io/badge/pub-v0.0.4-green)](https://pub.dev/packages/card_flip)
+```dart
+FlipLayout(
+    duration: 800,
+    foldState: true,
+    foldChild: FoldCard(),
+    children: List.generate(5, (index) {
+          return itemWidget(index);
+      }),
+)
+```
+## customization
 
- - example
-
-   ```dart
-   FlipLayout(
-        duration: 800,
-        foldState: true,
-        children: List.generate(5, (index) {
-              return itemWidget(index);
-        	}),
-        foldChild: FoldCard());
-    }
-   ```
-   
-***
-
-   https://user-images.githubusercontent.com/9412501/147241403-9096fa5c-db76-4106-828b-f9f0b454747b.mp4
-
-
-   https://user-images.githubusercontent.com/9412501/147240240-c81bece3-52f7-4ef9-a08b-69ca6b748e4d.mp4
+```dart
+const FlipLayout({
+    Key? key,
+    this.children,
+    this.foldChild,
+    this.foldState = false,
+    this.decoration,
+    this.duration = 1000,
+    this.borderRadius,
+    this.backgroundColor = Colors.grey,
+    this.background,
+})
+```
