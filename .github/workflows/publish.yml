@@ -1,12 +1,12 @@
 
 name: publish
 
-# Controls when the workflow will run
+# 发布 flutter library 到 pub.dev
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     tags:
-    - '*'
+      - '*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-     # 这个任务的步骤
+    # 这个任务的步骤
     steps:
       # 拉取项目代码
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -30,10 +30,11 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       # 发布
-      - name: Publish Dart/Flutter package
-        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
+      - name: 💪 publish Dart/Flutter package
+        uses: sakebook/actions-flutter-pub-publisher@v1.3.0
         with:
-          credential: ${{ secrets.dev_secret }}
+          credential: ${{ secrets.dev_credentials }}
           skip_test: true
-          flutter_package: false
+          dry_run: false
+      - run: echo "✨ ⭐ 🌟 publish Dart/Flutter package success . 🚀"
 
