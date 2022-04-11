@@ -38,12 +38,11 @@ class FlipLayout extends StatefulWidget {
   FlipLayoutState createState() => FlipLayoutState();
 }
 
-class FlipLayoutState extends State<FlipLayout>
-    with SingleTickerProviderStateMixin {
+class FlipLayoutState extends State<FlipLayout> with SingleTickerProviderStateMixin {
   late AnimationController _animationControl;
   late List<Animation<double>> _unfoldAnimations;
   var childSize = 0;
-  List<Animation<double>>? _heightAnimations;
+  late List<Animation<double>>? _heightAnimations;
 
   void toggle() {
     if (_animationControl.status == AnimationStatus.completed) {
@@ -64,13 +63,10 @@ class FlipLayoutState extends State<FlipLayout>
     childSize = widget.children!.length;
 
     if (childSize <= 3) {
-      _animationControl = AnimationController(
-          vsync: this, duration: Duration(milliseconds: widget.duration));
+      _animationControl = AnimationController(vsync: this, duration: Duration(milliseconds: widget.duration));
     } else {
       _animationControl = AnimationController(
-          vsync: this,
-          duration: Duration(
-              milliseconds: widget.duration * (childSize / 2).floor()));
+          vsync: this, duration: Duration(milliseconds: widget.duration * (childSize / 2).floor()));
     }
 
     Animation<double>? heightAnimation; //高度animation
@@ -81,8 +77,7 @@ class FlipLayoutState extends State<FlipLayout>
       //展开状态 1为展开 下一个动画是 (1-0) 0为折叠，
       _animationControl.value = 1;
     }
-    unfoldAnimation =
-        _animationControl.drive(CurveTween(curve: Curves.easeInOut));
+    unfoldAnimation = _animationControl.drive(CurveTween(curve: Curves.easeInOut));
     heightAnimation = CurvedAnimation(
       parent: _animationControl,
       curve: const Cubic(0.75, 0.82, 0.08, 1.25),
@@ -106,8 +101,7 @@ class FlipLayoutState extends State<FlipLayout>
         }
         Tween<double> foldTween = Tween(begin: begin, end: end);
         return foldTween
-            .chain(CurveTween(
-                curve: Interval(index * interval, (index + 1) * interval)))
+            .chain(CurveTween(curve: Interval(index * interval, (index + 1) * interval)))
             .animate(unfoldAnimation);
       });
 
@@ -115,12 +109,10 @@ class FlipLayoutState extends State<FlipLayout>
       _heightAnimations = List.generate(childSize - 1, (index) {
         CurveTween animatable;
         if (index == childSize - 2) {
-          animatable = CurveTween(
-              curve: IntervalOver1(index * interval, (index + 1) * interval));
+          animatable = CurveTween(curve: IntervalOver1(index * interval, (index + 1) * interval));
           animatable.chain(CurveTween(curve: Curves.easeOutBack));
         } else {
-          animatable = CurveTween(
-              curve: IntervalSafe(index * interval, (index + 1) * interval));
+          animatable = CurveTween(curve: IntervalSafe(index * interval, (index + 1) * interval));
         }
         return animatable.animate(heightAnimation!);
       });
@@ -152,54 +144,66 @@ class FlipLayoutState extends State<FlipLayout>
     return result;
   }
 
+  Widget? _getFlip(int index) {
+    Widget child = widget.children![index];
+    var unfoldValue = _unfoldAnimations[index].value;
+    if (index == 0) {
+      return Flip(
+        key: ValueKey(index),
+        spinProgress: unfoldValue,
+
+        /// 第一个item高度永远不变
+        // heightProgress: _heightAnimations[index].value,
+        child: child,
+        back: widget.foldChild!,
+      );
+    }
+    var heightValue = _heightAnimations![index - 1].value;
+    if (heightValue <= 0) {
+      return null;
+    }
+    if (index == childSize - 1) {
+      return Flip(
+        key: ValueKey(index),
+        spinProgress: unfoldValue,
+        heightProgress: heightValue,
+        child: child,
+      );
+    }
+    var background = widget.background ??
+        Container(
+          color: widget.backgroundColor,
+        );
+    return Flip(
+      key: ValueKey(index),
+      spinProgress: unfoldValue,
+      heightProgress: heightValue,
+      child: child,
+      back: background,
+    );
+  }
+
   /// 折叠到展开  0-1
   /// 1, 围绕底部旋转 0-90     折叠状态 0
   /// 2，围绕顶部 90-0(-0>-90)，，围绕底部 0-90(要显示holder)  折叠状态 -90
   /// 3，围绕顶部 90-0     折叠状态 90 ---> 0 折叠到展开
   foldAbleLayout(BuildContext context) {
+    List<Widget> flips = [];
+    for (var index=0; index < childSize; index++) {
+      var flip = _getFlip(index);
+      if (flip == null) {
+        break;
+      } else {
+        flips.add(flip);
+      }
+    }
     return Container(
       key: const ValueKey(0),
       decoration: widget.decoration,
       child: Column(
         key: const ValueKey(0),
         mainAxisSize: MainAxisSize.min,
-        children: List.generate(childSize, (index) {
-          Widget child = widget.children![index];
-          if (index == 0) {
-            return Flip(
-              key: ValueKey(index),
-              spinProgress: _unfoldAnimations[index].value,
-
-              /// 第一个item高度永远不变
-              // heightProgress: _heightAnimations[index].value,
-              child: child,
-              back: widget.foldChild!,
-            );
-          }
-          if (index == childSize - 1) {
-            return Flip(
-              key: ValueKey(index),
-              spinProgress: _unfoldAnimations[index].value,
-              heightProgress: _heightAnimations == null
-                  ? null
-                  : _heightAnimations![index - 1].value,
-              child: child,
-            );
-          }
-          var background = widget.background ??
-              Container(
-                color: widget.backgroundColor,
-              );
-          return Flip(
-            key: ValueKey(index),
-            spinProgress: _unfoldAnimations[index].value,
-            heightProgress: _heightAnimations == null
-                ? null
-                : _heightAnimations![index - 1].value,
-            child: child,
-            back: background,
-          );
-        }),
+        children: flips,
       ),
     );
   }
@@ -229,8 +233,7 @@ class Flip extends MultiChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(
-      BuildContext context, covariant CarouselRenderObject renderObject) {
+  void updateRenderObject(BuildContext context, covariant CarouselRenderObject renderObject) {
     renderObject
       ..spinProgress = spinProgress
       ..highProgress = heightProgress;
@@ -315,11 +318,8 @@ class CarouselRenderObject extends RenderStack {
     } else {
       //没有高度变化的控制就自己变化高度
       if (spinProgress < 0) {
-        size = Size(
-            size.width,
-            const Cubic(0.775, 0.685, 0.12, 1.05)
-                    .transform(math.cos(spinProgress.abs() * pi)) *
-                size.height);
+        size = Size(size.width,
+            const Cubic(0.775, 0.685, 0.12, 1.05).transform(math.cos(spinProgress.abs() * pi)) * size.height);
       }
     }
   }
@@ -387,8 +387,7 @@ class CarouselRenderObject extends RenderStack {
       _transform.rotateX(-radians);
     }
 
-    final Alignment resolvedAlignment =
-        alignmentDirectional.resolve(textDirection);
+    final Alignment resolvedAlignment = alignmentDirectional.resolve(textDirection);
     final Matrix4 result = Matrix4.identity();
     Offset? translation;
     translation = resolvedAlignment.alongSize(_originalSize);

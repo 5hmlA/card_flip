@@ -11,7 +11,7 @@ https://user-images.githubusercontent.com/9412501/147241403-9096fa5c-db76-4106-8
 https://user-images.githubusercontent.com/9412501/147240240-c81bece3-52f7-4ef9-a08b-69ca6b748e4d.mp4
 
 # how to use
-[![pub](https://img.shields.io/badge/pub-v0.0.4-green)](https://pub.dev/packages/card_flip)
+[![pub](https://img.shields.io/badge/pub-v0.0.5-green)](https://pub.dev/packages/card_flip)
 ```dart
 FlipLayout(
     duration: 800,

@@ -7,7 +7,7 @@ class FlipLayoutDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlipLayout(
-      duration: 800,
+      duration: 2800,
       foldState: true,
       children: List.generate(5, (index) {
         return itemWidget(index);

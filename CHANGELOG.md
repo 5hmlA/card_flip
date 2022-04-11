@@ -14,3 +14,7 @@
 
 - optimization
 
+## 0.0.5
+
+- optimization layout size
+
