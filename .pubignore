@@ -1,1 +1,5 @@
 /preview
+.packages
+example/.packages
+example/pubspec.lock
+pubspec.lock
